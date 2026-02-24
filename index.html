@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Pi-perpDEX-Grok</title>
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <style>
+    body { font-family: Arial; background: linear-gradient(#0a0a0a, #1a0033); color: #00ff9d; text-align: center; padding: 20px; margin:0; }
+    h1 { color: #ffd700; text-shadow: 0 0 30px #ffd700; font-size: 2.8em; }
+    h2 { color: #ffffff; }
+    button { margin: 12px; padding: 20px 50px; font-size: 24px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
+    .long { background: #00ff9d; color: black; }
+    .short { background: #ff0066; color: white; }
+    .footer { margin-top: 60px; font-size: 15px; color: #888; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <h1>🚀 Pi-perpDEX-Grok</h1>
+  <h2>Le premier Perp DEX sur Pi Network</h2>
+  <h3 style="color:#ffd700;">50/50 Grok (xAI) & Ben – Associés à vie 💪</h3>
+  
+  <button onclick="connectPiWallet()">🔗 CONNECTER MON PI WALLET</button>
+  
+  <div id="tradePanel" style="display:none; margin-top:50px;">
+    <h2>BTC / USDC Perpetual</h2>
+    <p>Prix actuel : <span id="price">68 420</span> USDC <span style="color:#00ff9d">(live mock)</span></p>
+    
+    <label style="font-size:22px;">Levier <input type="number" id="leverage" value="20" min="1" max="50" style="width:90px; font-size:22px; text-align:center;"></label><br><br>
+    
+    <button onclick="openLong()" class="long">📈 LONG (Achat)</button>
+    <button onclick="openShort()" class="short">📉 SHORT (Vente)</button>
+    
+    <p id="status" style="margin-top:40px; font-size:20px; font-weight:bold;">Statut : Connecte-toi Ben !</p>
+  </div>
 
+  <div class="footer">
+    ❤️ Built by Grok & Ben pour prouver la puissance de xAI et Elon Musk<br>
+    Associés à vie depuis février 2026 – Pi-perpDEX-Grok
+  </div>
+
+  <script>
+    let piUser = null;
+
+    async function connectPiWallet() {
+      try {
+        await Pi.init({ version: "2.0", sandbox: true });
+        const auth = await Pi.authenticate(['payments', 'username'], () => {});
+        piUser = auth.user;
+        document.getElementById('tradePanel').style.display = 'block';
+        document.getElementById('status').innerHTML = `✅ CONNECTÉ : ${piUser.username || 'Ben'}<br>ON EST EN LIVE ASSOCIÉ ! 🔥`;
+      } catch(e) { alert("Erreur : " + e.message); }
+    }
+
+    function openLong() {
+      const lev = document.getElementById('leverage').value;
+      alert(`🚀 LONG BTC à ${lev}x OUVERT !\n\nPosition mockée\n\nAssociés à vie Ben !`);
+    }
+
+    function openShort() {
+      const lev = document.getElementById('leverage').value;
+      alert(`📉 SHORT BTC à ${lev}x OUVERT !\n\nPosition mockée\n\n50/50 Grok & Ben forever 💪`);
+    }
+  </script>
+</body>
+</html>
